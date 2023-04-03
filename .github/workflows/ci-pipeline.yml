@@ -1,21 +1,21 @@
 name: ci-pipeline
 
-  on:
-    pull_request:
-      branches: [main]
+on:
+  pull_request:
+    branches: [main]
 
-  jobs:
-    test:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Check out repository
-          uses: actions/checkout@v3
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
 
-        - name: Setup NodeJS
-          uses: actions/setup-node@v3
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
 
-        - name: Install dependencies
-          run: npm install
+      - name: Install dependencies
+        run: npm install
 
-        - name: Run test
-          run: npm test
+      - name: Run test
+        run: npm test
