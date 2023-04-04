@@ -1,4 +1,31 @@
-# Group 7 - Mini Project 2
+<h6 align="center">
+    Group 7 - Mini Project 2
+</h6>
+
+<h1 align="center">
+        <a href="https://gofarm.today">Logo Here</a>
+</h1>
+
+<h3 align="center">
+    Get up and GoFarm.Today
+</h3>
+
+<h5 align="center">
+    The innovative app for farmers on the go.
+</h5>
+
+<p align="center">
+    <a href="https://gofarm.today"><b>Website</b></a> •
+    <a href="https://gofarm.today/about"><b>About</b></a> •
+    <a href="https://gofarm.today/contact"><b>Contact</b></a>
+</p>
+
+<div align="center">
+
+[![test](https://github.com/KodeGo-Bootcamp/gofarm-today/actions/workflows/test.yml/badge.svg)](https://github.com/KodeGo-Bootcamp/gofarm-today/actions/workflows/test.yml)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/51e2b4a5-e430-42f8-9188-8cc09b596268/deploy-status)](https://app.netlify.com/sites/gofarm-today/deploys)
+
+</div>
 
 ## Project Goal
 
@@ -30,6 +57,9 @@
 
 ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
 ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+
+![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
 ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7)
 
 ### Microservice
@@ -40,6 +70,9 @@
 
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&logo=TensorFlow&logoColor=white)
 ![Keras](https://img.shields.io/badge/Keras-%23D00000.svg?style=for-the-badge&logo=Keras&logoColor=white)
+![Uvicorn](https://img.shields.io/badge/uvicorn-4051B5.svg?style=for-the-badge&logo=gunicorn&logoColor=white)
+
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 
 ### External APIs
@@ -59,7 +92,7 @@ None so far.
 
 ## We Welcome Contributions From Everyone!
 
-To get started, follow the steps below:
+To get started, open the terminal and follow the steps below:
 
 1. Clone the repository
     ```bash
@@ -100,7 +133,7 @@ Don't forget to check out our [live link](https://gofarm.today).
 ## Learn More
 
 To learn more about the project tech stack, take a look at the following resources:
-- [Learn React](https://react.dev/learn) - an interative React tutorial.
-- [Learn Bootstrap](https://getbootstrap.com/docs/5.2/getting-started/introduction) - get started with Bootstrap.
-- [Learn React Bootstrap ](https://react-bootstrap.github.io/getting-started/introduction) - get started with React Bootstrap.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Learn React](https://react.dev/learn)
+- [Learn Bootstrap](https://getbootstrap.com/docs/5.2)
+- [Learn React Bootstrap ](https://react-bootstrap.github.io/getting-started/introduction)
+- [Learn Next.js](https://nextjs.org/learn)
