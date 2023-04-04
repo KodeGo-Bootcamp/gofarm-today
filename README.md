@@ -1,18 +1,22 @@
-<h6 align="center">
-    Group 7 - Mini Project 2
-</h6>
+<div align="center">
+
+`Group 7 - Mini Project 2`
+
+</div>
 
 <h1 align="center">
-        <a href="https://gofarm.today">Logo Here</a>
+        <a href="https://gofarm.today">
+            <img src="https://www.kindpng.com/picc/m/195-1951310_your-logo-here-png-monochrome-transparent-png.png">
+        </a>
 </h1>
 
-<h3 align="center">
-    Get up and GoFarm.Today
-</h3>
+<p align="center">
+    <b>Get up and GoFarm.Today</b>
+</p>
 
-<h5 align="center">
+<p align="center">
     The innovative app for farmers on the go.
-</h5>
+</p>
 
 <p align="center">
     <a href="https://gofarm.today"><b>Website</b></a> •
@@ -24,6 +28,7 @@
 
 [![test](https://github.com/KodeGo-Bootcamp/gofarm-today/actions/workflows/test.yml/badge.svg)](https://github.com/KodeGo-Bootcamp/gofarm-today/actions/workflows/test.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/51e2b4a5-e430-42f8-9188-8cc09b596268/deploy-status)](https://app.netlify.com/sites/gofarm-today/deploys)
+[![GitHub](https://img.shields.io/github/license/KodeGo-Bootcamp/gofarm-today)](https://github.com/KodeGo-Bootcamp/gofarm-today/blob/main/LICENSE)
 
 </div>
 
