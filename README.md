@@ -6,7 +6,7 @@
 
 <h1 align="center">
         <a href="https://gofarm.today">
-            <img src="https://www.kindpng.com/picc/m/195-1951310_your-logo-here-png-monochrome-transparent-png.png">
+            <img src="https://github.com/KodeGo-Bootcamp/gofarm-today/blob/main/public/cover-gofarm.svg?raw=true" alt="gofarm cover">
         </a>
 </h1>
 
