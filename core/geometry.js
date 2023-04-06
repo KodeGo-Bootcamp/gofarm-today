@@ -33,3 +33,14 @@ function toCartesianCoordinate(distance, azimuth) {
     return [x, y]
 }
 
+/**
+ * Get the line segment length of 1st and 2nd coordinaate
+ * @param {[Number, Number]} coord1 x and y component of 1st coordinate
+ * @param {[Number, Number]} coord2 x and y component of 2nd coordinate
+ * @returns Length of line segment
+ */
+function computeLineSegmentLength(coord1, coord2) {
+    const length = Math.sqrt((coord2[0] - coord1[0]) ** 2 + (coord2[1] - coord1[1]) ** 2)
+    return length
+}
+
