@@ -44,3 +44,77 @@ function computeLineSegmentLength(coord1, coord2) {
     return length
 }
 
+/**
+ * Perform Andrew's monotone chain convex hull algorithm
+ * @param {[[Number, Number]]} coords Array of coordinates
+ * @returns Convex hull array of coordinates
+ */
+function computeConvexHull(coords) {
+    /**
+     * Get the cross product of 3 coordinates
+     * @param {[Number, Number]} coord1 x and y component of 1st coordinate
+     * @param {[Number, Number]} coord2 x and y component of 2nd coordinate
+     * @param {[Number, Number]} origin x and y component of origin
+     * @returns Cross product
+     */
+    const computeCrossProduct = (coord1, coord2, origin) => {
+        const product = (coord1[0] - origin[0]) * (coord2[1] - origin[1]) - (coord1[1] - origin[1]) * (coord2[0] - origin[0])
+        return product
+    }
+
+    coords.sort((a, b) => {
+        const a0 = Math.abs(a[0])
+        const a1 = Math.abs(a[1])
+        const b0 = Math.abs(b[0])
+        const b1 = Math.abs(b[1])
+        if (a0 == b0) {
+            return a1 - b1
+        }
+        return a0 - b0
+    })
+
+    let lowerBound = []
+    for (let idx = 0; idx < coords.length; idx++) {
+        while (lowerBound.length >= 2) {
+            const crossProduct = computeCrossProduct(
+                lowerBound[lowerBound.length - 2],
+                lowerBound[lowerBound.length - 1],
+                coords[idx]
+            )
+            if (crossProduct > 0) {
+                break
+            }
+            lowerBound.pop()
+        }
+        lowerBound.push(coords[idx])
+    }
+
+    let upperBound = []
+    for (let idx = coords.length - 1; idx >= 0; idx--) {
+        while (upperBound.length >= 2) {
+            const crossProduct = computeCrossProduct(
+                upperBound[upperBound.length - 2],
+                upperBound[upperBound.length - 1],
+                coords[idx]
+            )
+            if (crossProduct > 0) {
+                break
+            }
+            upperBound.pop()
+        }
+        upperBound.push(coords[idx])
+    }
+
+    lowerBound.pop()
+    upperBound.pop()
+    const convexHullCoords = lowerBound.concat(upperBound)
+    return convexHullCoords
+}
+
+export {
+    toRadian,
+    computeOppositeSideLength,
+    toCartesianCoordinate,
+    computeLineSegmentLength,
+    computeConvexHull
+}
