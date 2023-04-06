@@ -20,3 +20,16 @@ function computeOppositeSideLength(theta, side) {
     return oppositeSideLength
 }
 
+/**
+ * Convert polar coordinate to Cartesian coordinate
+ * @param {Number} distance Distance from origin
+ * @param {Number} azimuth Angular coordinate in degree
+ * @returns {[Number, Number]} x and y component
+ */
+function toCartesianCoordinate(distance, azimuth) {
+    const thetaInRadian = toRadian(azimuth)
+    const x = distance * Math.cos(thetaInRadian)
+    const y = distance * Math.sin(thetaInRadian)
+    return [x, y]
+}
+
