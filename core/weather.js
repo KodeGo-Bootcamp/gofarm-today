@@ -8,3 +8,22 @@ function toJsTimestamp(timestamp) {
     return jsTimestamp
 }
 
+/**
+ * Convert return value of getDay to corresponding name of day
+ * @param {Number} value return value of getDay
+ * @returns Name of day
+ */
+function toDayName(value) {
+    const dayNames = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+    ]
+    const dayName = dayNames[value]
+    return dayName
+}
+
