@@ -27,3 +27,32 @@ function toDayName(value) {
     return dayName
 }
 
+/**
+ * Convert return value of getMonth to corresponding name of month
+ * @param {Number} value return value of getMonth
+ * @returns Name of month
+ */
+function toMonthName(value) {
+    const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+    ]
+    const monthName = monthNames[value]
+    return monthName
+}
+
+export {
+    toJsTimestamp,
+    toDayName,
+    toMonthName
+}
