@@ -3,7 +3,9 @@ import {
     computeOppositeSideLength,
     toCartesianCoordinate,
     computeLineSegmentLength,
-    computeConvexHull
+    computeConvexHull,
+    computeTriangleArea,
+    computeArea
 } from '../core/geometry'
 
 test('toRadian', () => {
@@ -38,4 +40,17 @@ test('computeConvexHull', () => {
     inArr = [[1, 4], [4, 9], [1, 10], [2, 10], [2, 5]]
     outArr = [[1, 4], [2, 5], [4, 9], [2, 10], [1, 10]]
     expect(computeConvexHull(inArr)).toEqual(outArr)
+})
+
+test('computeTriangleArea', () => {
+    expect(computeTriangleArea([2, 3], [5, 6], [6, -1])).toBeCloseTo(12)
+    expect(computeTriangleArea([-5, -3], [-9, 4], [7, -8])).toBeCloseTo(32)
+})
+
+test('computeArea', () => {
+    let inArr = computeConvexHull([[2, 2], [11, 2], [9, 7], [4, 10]])
+    expect(computeArea(inArr)).toBeCloseTo(45.5)
+
+    inArr = computeConvexHull([[-2, -2], [11, 2], [10, 10], [4, 10], [8, 14]])
+    expect(computeArea(inArr)).toBeCloseTo(102)
 })

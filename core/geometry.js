@@ -62,7 +62,8 @@ function computeConvexHull(coords) {
         return product
     }
 
-    coords.sort((a, b) => {
+    let coordsDeepClone = JSON.parse(JSON.stringify(coords))
+    coordsDeepClone.sort((a, b) => {
         const a0 = Math.abs(a[0])
         const a1 = Math.abs(a[1])
         const b0 = Math.abs(b[0])
@@ -74,35 +75,35 @@ function computeConvexHull(coords) {
     })
 
     let lowerBound = []
-    for (let idx = 0; idx < coords.length; idx++) {
+    for (let idx = 0; idx < coordsDeepClone.length; idx++) {
         while (lowerBound.length >= 2) {
             const crossProduct = computeCrossProduct(
                 lowerBound[lowerBound.length - 2],
                 lowerBound[lowerBound.length - 1],
-                coords[idx]
+                coordsDeepClone[idx]
             )
             if (crossProduct > 0) {
                 break
             }
             lowerBound.pop()
         }
-        lowerBound.push(coords[idx])
+        lowerBound.push(coordsDeepClone[idx])
     }
 
     let upperBound = []
-    for (let idx = coords.length - 1; idx >= 0; idx--) {
+    for (let idx = coordsDeepClone.length - 1; idx >= 0; idx--) {
         while (upperBound.length >= 2) {
             const crossProduct = computeCrossProduct(
                 upperBound[upperBound.length - 2],
                 upperBound[upperBound.length - 1],
-                coords[idx]
+                coordsDeepClone[idx]
             )
             if (crossProduct > 0) {
                 break
             }
             upperBound.pop()
         }
-        upperBound.push(coords[idx])
+        upperBound.push(coordsDeepClone[idx])
     }
 
     lowerBound.pop()
@@ -111,10 +112,48 @@ function computeConvexHull(coords) {
     return convexHullCoords
 }
 
+/**
+ * Get the area of a triangle using Heron's formula
+ * @param {Number} coord1 x and y component of 1st coordinate
+ * @param {Number} coord2 x and y component of 1nd coordinate
+ * @param {Number} coord3 x and y component of 3rd coordinate
+ * @returns Area of a triangle
+ */
+function computeTriangleArea(coord1, coord2, coord3) {
+    const a = computeLineSegmentLength(coord1, coord2)
+    const b = computeLineSegmentLength(coord2, coord3)
+    const c = computeLineSegmentLength(coord3, coord1)
+    const semiperimeter = 1 / 2 * (a + b + c)
+    const area = Math.sqrt(semiperimeter * (semiperimeter - a) * (semiperimeter - b) * (semiperimeter - c))
+    return area
+}
+
+/**
+ * Get the area of a convex polygon using triangulation
+ * @param {[[Number, Number]]} coords Array of coordinates in sequential order that forms a polygon
+ * @returns Area of a polygon
+ */
+function computeArea(coords) {
+    if (coords.length < 3) {
+        return 0
+    }
+
+    let coordsDeepClone = JSON.parse(JSON.stringify(coords))
+    let area = 0
+    while (coordsDeepClone.length >= 3) {
+        area += computeTriangleArea(coordsDeepClone[0], coordsDeepClone[1], coordsDeepClone[2])
+        coordsDeepClone.splice(1, 1)
+    }
+
+    return area
+}
+
 export {
     toRadian,
     computeOppositeSideLength,
     toCartesianCoordinate,
     computeLineSegmentLength,
-    computeConvexHull
+    computeConvexHull,
+    computeTriangleArea,
+    computeArea
 }
