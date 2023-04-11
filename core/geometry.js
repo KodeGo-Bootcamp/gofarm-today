@@ -128,10 +128,32 @@ function computeTriangleArea(coord1, coord2, coord3) {
     return area
 }
 
+/**
+ * Get the area of a convex polygon using triangulation
+ * @param {[[Number, Number]]} coords Array of coordinates in sequential order that forms a polygon
+ * @returns Area of a polygon
+ */
+function computeArea(coords) {
+    if (coords.length < 3) {
+        return 0
+    }
+
+    let coordsDeepClone = JSON.parse(JSON.stringify(coords))
+    let area = 0
+    while (coordsDeepClone.length >= 3) {
+        area += computeTriangleArea(coordsDeepClone[0], coordsDeepClone[1], coordsDeepClone[2])
+        coordsDeepClone.splice(1, 1)
+    }
+
+    return area
+}
+
 export {
     toRadian,
     computeOppositeSideLength,
     toCartesianCoordinate,
     computeLineSegmentLength,
-    computeConvexHull
+    computeConvexHull,
+    computeTriangleArea,
+    computeArea
 }
