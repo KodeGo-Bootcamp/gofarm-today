@@ -116,9 +116,10 @@ To get started, open the terminal and follow the steps below:
 
 4. Configure local environment variables
     ```bash
-    echo "OPENWEATHER_API_KEY = YOUR_API_KEY" >> .env.local
-    echo "OPENAI_API_KEY = YOUR_API_KEY" >> .env.local
+    echo OPENWEATHER_API_KEY = YOUR_API_KEY >> .env.local
+    echo OPENAI_API_KEY = YOUR_API_KEY >> .env.local
     ```
+    **Note: You need to subscribe to OpenWeather One Call API 3.0**
 
 5. Run development server
     ```bash
