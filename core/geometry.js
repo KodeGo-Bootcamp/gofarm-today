@@ -62,7 +62,8 @@ function computeConvexHull(coords) {
         return product
     }
 
-    coords.sort((a, b) => {
+    let coordsDeepClone = JSON.parse(JSON.stringify(coords))
+    coordsDeepClone.sort((a, b) => {
         const a0 = Math.abs(a[0])
         const a1 = Math.abs(a[1])
         const b0 = Math.abs(b[0])
@@ -74,35 +75,35 @@ function computeConvexHull(coords) {
     })
 
     let lowerBound = []
-    for (let idx = 0; idx < coords.length; idx++) {
+    for (let idx = 0; idx < coordsDeepClone.length; idx++) {
         while (lowerBound.length >= 2) {
             const crossProduct = computeCrossProduct(
                 lowerBound[lowerBound.length - 2],
                 lowerBound[lowerBound.length - 1],
-                coords[idx]
+                coordsDeepClone[idx]
             )
             if (crossProduct > 0) {
                 break
             }
             lowerBound.pop()
         }
-        lowerBound.push(coords[idx])
+        lowerBound.push(coordsDeepClone[idx])
     }
 
     let upperBound = []
-    for (let idx = coords.length - 1; idx >= 0; idx--) {
+    for (let idx = coordsDeepClone.length - 1; idx >= 0; idx--) {
         while (upperBound.length >= 2) {
             const crossProduct = computeCrossProduct(
                 upperBound[upperBound.length - 2],
                 upperBound[upperBound.length - 1],
-                coords[idx]
+                coordsDeepClone[idx]
             )
             if (crossProduct > 0) {
                 break
             }
             upperBound.pop()
         }
-        upperBound.push(coords[idx])
+        upperBound.push(coordsDeepClone[idx])
     }
 
     lowerBound.pop()
