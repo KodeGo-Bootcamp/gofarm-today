@@ -112,6 +112,22 @@ function computeConvexHull(coords) {
     return convexHullCoords
 }
 
+/**
+ * Get the area of a triangle using Heron's formula
+ * @param {Number} coord1 x and y component of 1st coordinate
+ * @param {Number} coord2 x and y component of 1nd coordinate
+ * @param {Number} coord3 x and y component of 3rd coordinate
+ * @returns Area of a triangle
+ */
+function computeTriangleArea(coord1, coord2, coord3) {
+    const a = computeLineSegmentLength(coord1, coord2)
+    const b = computeLineSegmentLength(coord2, coord3)
+    const c = computeLineSegmentLength(coord3, coord1)
+    const semiperimeter = 1 / 2 * (a + b + c)
+    const area = Math.sqrt(semiperimeter * (semiperimeter - a) * (semiperimeter - b) * (semiperimeter - c))
+    return area
+}
+
 export {
     toRadian,
     computeOppositeSideLength,
