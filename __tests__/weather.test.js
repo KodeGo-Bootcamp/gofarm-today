@@ -34,5 +34,5 @@ test('toMoonPhaseName', () => {
 })
 
 test('toHumanReadableTime', () => {
-    expect(toHumanReadableTime(1681406353000)).toBe("Apr 14, 2023, 1:19:13 AM")
+    expect(toHumanReadableTime(1681406353000)).toBe("Apr 13, 2023, 5:19:13 PM")
 })
