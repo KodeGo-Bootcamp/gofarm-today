@@ -1,4 +1,5 @@
 import { Configuration, OpenAIApi } from "openai";
+import { toHumanReadableTime } from "@/core/weather"
 
 /**
  * This function serves as an API endpoint that returns a JSON response containing
@@ -11,8 +12,8 @@ import { Configuration, OpenAIApi } from "openai";
  * appended to the chat history and returned in the response body as a JSON array.
  *
  * The JSON request must include the following fields:
- *  - weather_data (object): The weather data came from internal API.
- *  - chat_data (object[]): The previous chat history came from this.
+ * - weather_data (object): The weather data came from internal API
+ * - chat_data (object[]): The previous chat history came from this
  */
 export default async function handler(request, response) {
     if (request.method != 'POST') {
@@ -29,28 +30,35 @@ export default async function handler(request, response) {
         return
     }
 
-    const chatbotIdentity = "You are Soma a farming assistant chatbot."
-    const chatbotWeatherData = "You are an expert farming assistant with a keen eye for details."
-        + " Based on this JSON data: " + JSON.stringify(weatherData)
-    const chatbotTask = "Considering I'm in the farm."
-        + " Analyze if my plants needs irrigation."
-        + " Analyze what I can plant with the current season and location."
-        + " Analyze what the current weather will cause to my plants."
-    const chatbotReply = "Make your reply short and clear"
-        + " while not neglecting the necessary and not using abbreviations."
-    const chatbotTranslation = "You will reply in the mother language used in my country."
-        + " You will start with introducing yourself"
-        + " while indicating the data is coming from external API"
-        + " and end with \"Do you have anymore questions?\"."
-    const chatbotReplyExample = "Example: Hello, I'm Soma your farming assistant."
-        + " Based on my data ... Do you have anymore question?"
+    weatherData.datetime.current = toHumanReadableTime(weatherData.datetime.current + weatherData.datetime.zone_offset)
+    weatherData.datetime.sunrise = toHumanReadableTime(weatherData.datetime.sunrise + weatherData.datetime.zone_offset)
+    weatherData.datetime.sunset = toHumanReadableTime(weatherData.datetime.sunset + weatherData.datetime.zone_offset)
+    weatherData.datetime.moonrise = toHumanReadableTime(weatherData.datetime.moonrise + weatherData.datetime.zone_offset)
+    weatherData.datetime.moonset = toHumanReadableTime(weatherData.datetime.moonset + weatherData.datetime.zone_offset)
+    delete weatherData.datetime.zone_offset
+
+    const chatbotExpertPersona = "Take on a persona of a successful agronomist named Soma. "
+    const chatbotInstruction = `Propose using the native language used in ${weatherData.address.country} `
+    const chatbotTextFormatting = "a short and clear "
+    const chatbotObjective = "recommendation if the crops requires watering today based on the weather data inside the JSON, "
+        + "recommendation on what plant is good for the current season based on the date and location data inside the JSON, "
+        + "recommendation if it is a good time to plant today based on the weather data, soil temperature data, and soil moisture data inside the JSON, "
+        + "and infer unknown data to provide a suggestive result "
+    const chatbotData = `using this JSON data\n${JSON.stringify(weatherData)}\n`
+    const chatbotTone = "The tone should be suggestive and expert sounding like all the data is coming from you "
+    const chatbotTargetAudience = "targeting farmers working on the field."
+
+    const systemPrompt = "You are Soma a farming assistant chatbot."
+    const userPrompt = chatbotExpertPersona
+        + chatbotInstruction
+        + chatbotTextFormatting
+        + chatbotObjective
+        + chatbotData
+        + chatbotTone
+        + chatbotTargetAudience
     const prompt = [
-        { role: "system", content: chatbotIdentity },
-        { role: "user", content: chatbotWeatherData },
-        { role: "user", content: chatbotTask },
-        { role: "user", content: chatbotReply },
-        { role: "user", content: chatbotTranslation },
-        { role: "user", content: chatbotReplyExample }
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userPrompt }
     ]
 
     const configuration = new Configuration({ apiKey: process.env.OPENAI_API_KEY })
