@@ -51,8 +51,66 @@ function toMonthName(value) {
     return monthName
 }
 
+/**
+ * Convert a value to its corresponding moon phase name
+ * @param {Number} value Moon phase value (0-1)
+ * @returns Moon phase name
+ */
+function toMoonPhaseName(value) {
+    if (value == 0 || value == 1) {
+        return "New Moon"
+    }
+
+    if (value < 0.25) {
+        return "Waxing Crescent"
+    }
+
+    if (value == 0.25) {
+        return "First Quarter Moon"
+    }
+
+    if (value < 0.5) {
+        return "Waxing Gibous"
+    }
+
+    if (value == 0.5) {
+        return "Full Moon"
+    }
+
+    if (value < 0.75) {
+        return "Waning Gibous"
+    }
+
+    if (value == 0.75) {
+        return "Last Quarter Moon"
+    }
+
+    return "Waning Crescent"
+}
+
+/**
+ * Converts a timestamp to human readable format
+ * 
+ * Note: Apply the timezone offset on the argument as it disregards timezone
+ * @param {Number} timestamp Timestamp
+ * @returns Human readable date and time
+ */
+function toHumanReadableTime(timestamp) {
+    const locales = ["en-US"]
+    const options = {
+        dateStyle: "medium",
+        timeStyle: "medium"
+    }
+    const timeZoneOffset = (new Date()).getTimezoneOffset() * 60000
+    const date = new Date(timestamp + timeZoneOffset)
+    const humanReadableTime = date.toLocaleString(locales, options)
+    return humanReadableTime
+}
+
 export {
     toJsTimestamp,
     toDayName,
-    toMonthName
+    toMonthName,
+    toMoonPhaseName,
+    toHumanReadableTime
 }
