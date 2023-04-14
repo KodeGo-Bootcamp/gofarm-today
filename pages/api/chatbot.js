@@ -16,12 +16,18 @@ import { Configuration, OpenAIApi } from "openai";
  */
 export default async function handler(request, response) {
     if (request.method != 'POST') {
-        response.status(405).send({ message: "Use HTTP POST request only." })
+        const message = `Endpoint expects POST got ${request.method} instead`
+        response.status(405).send({ message })
         return
     }
 
-    const weatherData = request.body.weather_data ?? {}
-    let chatData = request.body.chat_data ?? []
+    let weatherData = request.body.weather_data ?? ""
+    let chatData = request.body.chat_data ?? ""
+
+    if (!weatherData) {
+        response.status(503).send({ message: "No data to analyze" })
+        return
+    }
 
     const chatbotIdentity = "You are Soma a farming assistant chatbot."
     const chatbotWeatherData = "You are an expert farming assistant with a keen eye for details."
@@ -62,5 +68,5 @@ export default async function handler(request, response) {
         message
     ]
 
-    response.status(200).json([...chatData])
+    response.json([...chatData])
 }

@@ -46,18 +46,52 @@ export default async function handler(request, response) {
         + `&units=${units}`
     const openweatherData = await axios.get(openweatherUrl).then((axiosResponse) => {
         return axiosResponse.data
-    }).catch(() => {
-        return {}
+    }).catch((error) => {
+        if (error.response) {
+            const message = error.response.data.message ?? "Unknown error occured"
+            response.status(503).json({ message })
+            return
+        }
+
+        if (error.request) {
+            const message = error.message
+            response.status(503).json({ message })
+            return
+        }
+
+        response.status(503).json({ message: "Something went wrong" })
     })
 
     const geocodeUrl = `https://geocode.maps.co/reverse`
         + `?lat=${latitude}`
         + `&lon=${longitude}`
     const geocodeData = await axios.get(geocodeUrl).then((axiosResponse) => {
+        if (axiosResponse.data.error) {
+            const message = axiosResponse.data.error
+            response.status(503).json({ message })
+            return
+        }
+
         return axiosResponse.data
-    }).catch(() => {
-        return {}
+    }).catch((error) => {
+        if (error.response) {
+            const message = error.response.data.error?.message ?? "Unknown error occured"
+            response.status(503).json({ message })
+            return
+        }
+
+        if (error.request) {
+            const message = error.message
+            response.status(503).json({ message })
+            return
+        }
+
+        response.status(503).json({ message: "Something went wrong" })
     })
+
+    if (response.statusCode != 200) {
+        return
+    }
 
     const timestamp = openweatherData?.current.dt ?? ""
     const date = new Date(toJsTimestamp(timestamp))
@@ -106,5 +140,5 @@ export default async function handler(request, response) {
         wind_speed_in_meter_per_second
     }
 
-    response.status(200).json({ ...weatherData })
+    response.json({ ...weatherData })
 }
