@@ -46,42 +46,53 @@ export default async function handler(request, response) {
         + `&units=${units}`
     const openweatherData = await axios.get(openweatherUrl).then((axiosResponse) => {
         return axiosResponse.data
-    }).catch(() => {
-        return {}
+    }).catch((error) => {
+        if (error.response) {
+            const message = error.response.data.message ?? "Unknown error occured"
+            response.status(503).json({ message })
+            return
+        }
+
+        if (error.request) {
+            const message = error.message
+            response.status(503).json({ message })
+            return
+        }
+
+        response.status(503).json({ message: "Something went wrong" })
     })
 
     const geocodeUrl = `https://geocode.maps.co/reverse`
         + `?lat=${latitude}`
         + `&lon=${longitude}`
     const geocodeData = await axios.get(geocodeUrl).then((axiosResponse) => {
+        if (axiosResponse.data.error) {
+            const message = axiosResponse.data.error
+            response.status(503).json({ message })
+            return
+        }
+
         return axiosResponse.data
-    }).catch(() => {
-        return {}
+    }).catch((error) => {
+        if (error.response) {
+            const message = error.response.data.error?.message ?? "Unknown error occured"
+            response.status(503).json({ message })
+            return
+        }
+
+        if (error.request) {
+            const message = error.message
+            response.status(503).json({ message })
+            return
+        }
+
+        response.status(503).json({ message: "Something went wrong" })
     })
 
-    const timestamp = openweatherData?.current.dt ?? ""
-    const date = new Date(toJsTimestamp(timestamp))
-    const day = toDayName(date.getDay())
-    const month = toMonthName(date.getMonth())
-    const day_of_month = date.getDate()
-    const year = date.getFullYear()
-    const hour_in_military = date.getHours()
-    const minute_in_military = date.getMinutes()
-    const country = geocodeData?.address.country ?? ""
-    const region = geocodeData?.address.region ?? ""
-    const state = geocodeData?.address.state ?? ""
-    const city = geocodeData?.address.city ?? geocodeData?.address.town ?? ""
-    const cloudiness_in_percent = openweatherData?.current.clouds ?? ""
-    const dew_point_in_celcius = openweatherData?.current.dew_point ?? ""
-    const humidity_in_percent = openweatherData?.current.humidity ?? ""
-    const atmospheric_pressure_in_hectopascal = openweatherData?.current.pressure ?? ""
-    const temperature_in_celcius = openweatherData?.current.temp ?? ""
-    const uv_index = openweatherData?.current.uvi ?? ""
-    const weather_description = openweatherData?.current.weather[0].description ?? ""
-    const weather_icon_id = openweatherData?.current.weather[0].icon ?? ""
-    const wind_direction_in_degree = openweatherData?.current.wind_deg ?? ""
-    const wind_gust_in_meter_per_second = openweatherData?.current.wind_gust ?? ""
-    const wind_speed_in_meter_per_second = openweatherData?.current.wind_speed ?? ""
+    if (response.statusCode != 200) {
+        return
+    }
+
     const weatherData = {
         day,
         month,
@@ -106,5 +117,5 @@ export default async function handler(request, response) {
         wind_speed_in_meter_per_second
     }
 
-    response.status(200).json({ ...weatherData })
+    response.json({ ...weatherData })
 }
