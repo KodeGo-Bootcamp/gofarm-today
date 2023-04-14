@@ -88,8 +88,26 @@ function toMoonPhaseName(value) {
     return "Waning Crescent"
 }
 
+/**
+ * Converts a timestamp to human readable format
+ * @param {Number} timestamp Timestamp
+ * @returns Human readable date and time
+ */
+function toHumanReadableTime(timestamp) {
+    const locales = []
+    const options = {
+        dateStyle: "medium",
+        timeStyle: "medium"
+    }
+    const date = new Date(timestamp)
+    const humanReadableTime = date.toLocaleString(locales, options)
+    return humanReadableTime
+}
+
 export {
     toJsTimestamp,
     toDayName,
-    toMonthName
+    toMonthName,
+    toMoonPhaseName,
+    toHumanReadableTime
 }
