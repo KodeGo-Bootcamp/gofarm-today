@@ -84,6 +84,8 @@
 
 - [OpenWeather](https://openweathermap.org)
 - [OpenAI](https://openai.com)
+- [Maps](https://maps.co)
+- [Open-Meteo](https://open-meteo.com)
 
 ## Scrum Team
 
