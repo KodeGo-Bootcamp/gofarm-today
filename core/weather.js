@@ -90,16 +90,19 @@ function toMoonPhaseName(value) {
 
 /**
  * Converts a timestamp to human readable format
+ * 
+ * Note: Apply the timezone offset on the argument as it disregards timezone
  * @param {Number} timestamp Timestamp
  * @returns Human readable date and time
  */
 function toHumanReadableTime(timestamp) {
-    const locales = []
+    const locales = ["en-US"]
     const options = {
         dateStyle: "medium",
         timeStyle: "medium"
     }
-    const date = new Date(timestamp)
+    const timeZoneOffset = (new Date()).getTimezoneOffset() * 60000
+    const date = new Date(timestamp + timeZoneOffset)
     const humanReadableTime = date.toLocaleString(locales, options)
     return humanReadableTime
 }
