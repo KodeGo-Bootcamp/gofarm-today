@@ -1,7 +1,5 @@
 import Head from 'next/head'
 import NavigationBar from '@/components/NavigationBar'
-import WeatherFrame from '@/components/WeatherFrame'
-import SensorFrame from '@/components/SensorFrame'
 import DraftFrame from '@/components/DraftFrame'
 
 export default function Contact() {
@@ -20,8 +18,6 @@ export default function Contact() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <NavigationBar activeKey={"/contact"} />
-            <WeatherFrame />
-            <SensorFrame />
             <DraftFrame />
         </>
     )
