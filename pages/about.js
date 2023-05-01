@@ -1,7 +1,5 @@
 import Head from 'next/head'
 import NavigationBar from '@/components/NavigationBar'
-import WeatherFrame from '@/components/WeatherFrame'
-import SensorFrame from '@/components/SensorFrame'
 import DraftFrame from '@/components/DraftFrame'
 
 export default function About() {
@@ -20,8 +18,6 @@ export default function About() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <NavigationBar activeKey={"/about"} />
-            <WeatherFrame />
-            <SensorFrame />
             <DraftFrame />
         </>
     )
