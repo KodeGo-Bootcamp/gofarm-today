@@ -3,7 +3,6 @@ import NavigationBar from '@/components/NavigationBar'
 import ChatFrame from '@/components/ChatFrame'
 import DraftFrame from '@/components/DraftFrame'
 import WeatherFrame from '@/components/WeatherFrame'
-import { WeatherDataProvider } from '@/components/WeatherDataContext'
 
 export default function Home() {
     return (
@@ -23,10 +22,8 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <NavigationBar activeKey={"/"} />
-            <WeatherDataProvider>
-                <WeatherFrame />
-                <ChatFrame />
-            </WeatherDataProvider>
+            <WeatherFrame />
+            <ChatFrame />
             <DraftFrame />
         </>
     )
