@@ -18,7 +18,7 @@ export function useWeatherDataReducer() {
     return [useContext(WeatherDataContext), useContext(WeatherDataDispatchContext)]
 }
 
-export function WeatherDataProvider({ children }) {
+export function DataProvider({ children }) {
     const [weatherData, weatherDataDispatch] = useReducer(weatherDataReducer)
 
     return (
