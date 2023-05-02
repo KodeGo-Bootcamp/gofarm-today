@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { useWeatherDataReducer } from './WeatherDataContext'
+import { useWeatherDataReducer } from './DataContext'
 
 export default function WeatherFrame() {
     const [location, setLocation] = useState()
