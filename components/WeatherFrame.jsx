@@ -56,7 +56,7 @@ export default function WeatherFrame() {
                     <Card className={"my-1"}>
                         <Card.Body className={"d-flex justify-content-between"}>
                             <Card.Text className='m-0'>
-                                <Image src={getIconUrl(weatherData.weather.icon)} />
+                                <Image src={getIconUrl(weatherData.weather.icon)} alt={"weather icon"} />
                                 {weatherData.weather.main}
                             </Card.Text>
                             <Card.Text className="align-self-center">
