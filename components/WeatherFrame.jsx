@@ -1,13 +1,74 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { Card, CardGroup, Col, Container, Image, Row } from 'react-bootstrap'
+import { Button, Card, CardGroup, Col, Container, Image, Modal, Row } from 'react-bootstrap'
 import { toHumanReadableTime } from '@/core/weather'
 import { useWeatherDataReducer } from './DataContext'
 import LoadingFrame from './LoadingFrame'
 
 export default function WeatherFrame() {
+    const [isRequesting, setIsRequesting] = useState(false)
     const [location, setLocation] = useState()
     const [weatherData, weatherDataDispatch] = useWeatherDataReducer()
+
+    const RequestFrame = () => {
+        const useInternalAPI = ({ coords }) => {
+            const { latitude, longitude } = coords
+            setLocation({ latitude, longitude })
+        }
+
+        const useExternalAPI = () => {
+            const primaryProviderUrl = `https://ipapi.co/json`
+            axios.get(primaryProviderUrl).then((axiosResponse) => {
+                const { latitude, longitude } = axiosResponse.data
+                if (latitude && longitude) {
+                    setLocation({ latitude, longitude })
+                    return
+                }
+                setLocation({ latitude: 14.5995, longitude: 120.9842 })
+            })
+        }
+
+        const handleOnHide = () => {
+            setIsRequesting(false)
+            useExternalAPI()
+        }
+
+        const handleRequestAccess = () => {
+            setIsRequesting(false)
+            if (!navigator.geolocation) {
+                useExternalAPI()
+                return
+            }
+            navigator.geolocation.getCurrentPosition(useInternalAPI, useExternalAPI)
+        }
+
+        return (
+            <Modal show={isRequesting} onHide={handleOnHide} backdrop={"static"} keyboard={false}>
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        Welcome to our site!
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    We want to provide you with the most accurate weather information to
+                    help you plan your day. To do that, we need your permission to  access
+                    your location. Don't worry, we won't share your information with anyone.
+                </Modal.Body>
+                <Modal.Body>
+                    After clicking the button below, you'll see a prompt asking you
+                    to allow location access. Please select 'Allow' to continue.
+                </Modal.Body>
+                <Modal.Body>
+                    Thank you for choosing us to be your go-to source for weather updates!
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={handleRequestAccess} variant={"outline-dark"}>
+                        Request Access
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        )
+    }
 
     const WeatherCard = ({ condition, value }) => {
         return (
@@ -39,7 +100,7 @@ export default function WeatherFrame() {
 
         const getIconUrl = (iconId) => {
             const iconUrl = ` https://openweathermap.org/img/wn`
-                + `/${iconId}.png`
+                + `/${iconId}@2x.png`
             return iconUrl
         }
 
@@ -56,7 +117,7 @@ export default function WeatherFrame() {
                     <Card className={"my-1"}>
                         <Card.Body className={"d-flex justify-content-between"}>
                             <Card.Text className='m-0'>
-                                <Image src={getIconUrl(weatherData.weather.icon)} alt={"weather icon"} />
+                                <Image src={getIconUrl(weatherData.weather.icon)} width={70} height={70} alt={"weather icon"} />
                                 {weatherData.weather.main}
                             </Card.Text>
                             <Card.Text className="align-self-center">
@@ -131,7 +192,7 @@ export default function WeatherFrame() {
 
     const TimeCard = ({ occurence, time }) => {
         return (
-            <Card className={"text-center my-1"} bg={"light"} variant={"light"} text={"dark"}>
+            <Card className={"text-center my-1"}>
                 <Card.Body>
                     <Card.Title>
                         {occurence}
@@ -181,7 +242,7 @@ export default function WeatherFrame() {
 
     const TemperatureCard = ({ timePeriod, temperature, feelsLike }) => {
         return (
-            <Card className={"text-center my-1"} bg={"light"} variant={"light"} text={"dark"}>
+            <Card className={"text-center my-1"}>
                 <Card.Header>
                     {timePeriod}
                 </Card.Header>
@@ -246,30 +307,18 @@ export default function WeatherFrame() {
         )
     }
 
+    const WeatherFrame = () => {
+        return (
+            <>
+                <WeatherCardGroup />
+                <TimeCardGroup />
+                <TemperatureCardGroup />
+            </>
+        )
+    }
+
     useEffect(() => {
-        const useInternalAPI = ({ coords }) => {
-            const { latitude, longitude } = coords
-            setLocation({ latitude, longitude })
-        }
-
-        const useExternalAPI = () => {
-            const primaryProviderUrl = `https://ipapi.co/json`
-            axios.get(primaryProviderUrl).then((axiosResponse) => {
-                const { latitude, longitude } = axiosResponse.data
-                if (latitude && longitude) {
-                    setLocation({ latitude, longitude })
-                    return
-                }
-                setLocation({latitude: 14.5995, longitude: 120.9842})
-            })
-        }
-
-        if (!navigator.geolocation) {
-            useExternalAPI()
-            return
-        }
-
-        navigator.geolocation.getCurrentPosition(useInternalAPI, useExternalAPI)
+        setIsRequesting(true)
     }, [])
 
     useEffect(() => {
@@ -287,10 +336,9 @@ export default function WeatherFrame() {
     }, [location])
 
     return (
-        <div>
-            {weatherData ? <WeatherCardGroup /> : <LoadingFrame />}
-            {weatherData ? <TimeCardGroup /> : <LoadingFrame />}
-            {weatherData ? <TemperatureCardGroup /> : <LoadingFrame />}
-        </div>
+        <>
+            <RequestFrame />
+            {weatherData ? <WeatherFrame /> : <LoadingFrame />}
+        </>
     )
 }
