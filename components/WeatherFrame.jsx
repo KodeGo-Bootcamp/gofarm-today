@@ -253,10 +253,18 @@ export default function WeatherFrame() {
         }
 
         const useExternalAPI = () => {
-            const url = `http://ip-api.com/json`
-            axios.get(url).then((axiosResponse) => {
-                const { lat, lon } = axiosResponse.data
-                setLocation({ latitude: lat, longitude: lon })
+            const primaryProviderUrl = `https://ipapi.co/json`
+            axios.get(primaryProviderUrl).then((axiosResponse) => {
+                const { latitude, longitude } = axiosResponse.data
+                if (latitude && longitude) {
+                    setLocation({ latitude, longitude })
+                    return
+                }
+                const secondaryProviderUrl = `http://ip-api.com/json`
+                axios.get(secondaryProviderUrl).then((axiosResponse) => {
+                    const { lat, lon } = axiosResponse.data
+                    setLocation({ latitude: lat, longitude: lon })
+                })
             })
         }
 
