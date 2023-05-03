@@ -39,7 +39,7 @@ export default function WeatherFrame() {
 
         const getIconUrl = (iconId) => {
             const iconUrl = ` https://openweathermap.org/img/wn`
-                + `/${iconId}.png`
+                + `/${iconId}@2x.png`
             return iconUrl
         }
 
@@ -56,7 +56,7 @@ export default function WeatherFrame() {
                     <Card className={"my-1"}>
                         <Card.Body className={"d-flex justify-content-between"}>
                             <Card.Text className='m-0'>
-                                <Image src={getIconUrl(weatherData.weather.icon)} alt={"weather icon"} />
+                                <Image src={getIconUrl(weatherData.weather.icon)} width={70} height={70} alt={"weather icon"} />
                                 {weatherData.weather.main}
                             </Card.Text>
                             <Card.Text className="align-self-center">
