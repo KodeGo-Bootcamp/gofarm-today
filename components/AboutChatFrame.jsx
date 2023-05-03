@@ -1,27 +1,34 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import Accordion from 'react-bootstrap/Accordion';
 
 export default function AboutChatFrame() {
     
         return (
-          <Container>
-            <Row className="justify-content-center">
-              <Col md={8} lg={6}>
-                <h2>About ChatGPT</h2>
-                <p>
-                ChatGPT is a state-of-the-art technology that uses deep learning techniques to generate human-like responses to textual prompts. Developed by OpenAI, ChatGPT is based on the GPT (Generative Pre-trained Transformer) architecture, which allows it to learn from large amounts of data and produce highly coherent and contextually relevant responses.
+          <Accordion>
+      <Accordion.Item eventKey="0">
+        <Accordion.Header><h3>What is ChatGPT</h3></Accordion.Header>
+        <Accordion.Body>
+        ChatGPT is an AI-powered chatbot designed to provide helpful and informative responses to your website visitors. Built on the cutting-edge GPT-3.5 architecture, ChatGPT has been trained on a vast amount of text data and can understand natural language, allowing it to provide intelligent and personalized answers to a wide range of questions.
+
+Whether your website visitors are looking for information on your products or services, need help with a particular issue, or simply want to engage in a conversation, ChatGPT is there to assist them 24/7. With its advanced natural language processing capabilities, ChatGPT can quickly and accurately understand the intent behind each question and provide a response that meets the visitor's needs.
+
+In addition to its impressive capabilities, ChatGPT is also incredibly easy to use. Visitors can interact with ChatGPT through a simple chat interface, and the bot responds in a matter of seconds. Whether you're running a small business or a large enterprise, ChatGPT is an excellent tool to help you engage with your customers and provide them with the support they need.
+        </Accordion.Body>
+      </Accordion.Item>
+      <Accordion.Item eventKey="1">
+        <Accordion.Header><h3>How to use ChatGPT</h3></Accordion.Header>
+        <Accordion.Body>
+        <h4>Using ChatGPT is easy and straightforward. Here are the steps to follow:</h4>
+        <ol>
+        <li>Locate the chat interface on your website where ChatGPT is available. This could be a chatbox or a floating icon.</li>
+        <li>Type in your question or query in the chat interface. Try to be as clear and specific as possible in your language.</li>
+        <li>ChatGPT will process your question using its advanced natural language processing capabilities and provide a response in a matter of seconds.</li>
+        <li>Read the response carefully and follow up with additional questions or clarifications if necessary.</li>
+        <li>If you have finished your conversation with ChatGPT, simply close the chat interface.</li></ol>
+        <p>It's important to note that ChatGPT is an AI-powered chatbot and may not always provide accurate responses to complex or highly technical questions. In such cases, it's always best to consult a human expert or seek further information from credible sources. Nonetheless, ChatGPT is an excellent tool for providing quick and helpful responses to a wide range of queries, and it can be a valuable addition to your website.</p>
+        </Accordion.Body>
+      </Accordion.Item>
       
-      ChatGPT has been trained on a wide variety of textual sources, including books, articles, and online conversations. This extensive training enables ChatGPT to understand and generate responses on a wide range of topics, from general knowledge questions to more complex subject matter.
-      
-      One of the key features of ChatGPT is its ability to adapt to different conversational contexts. It can recognize the tone and mood of a conversation and adjust its responses accordingly, making it a highly versatile tool for natural language processing.
-      
-      Another advantage of ChatGPT is its ability to learn from user feedback. It can adjust its responses based on how well its answers are received by users, improving its accuracy and relevance over time.
-      
-      Overall, ChatGPT is a powerful tool that has the potential to transform the way we interact with machines and automate many aspects of our daily lives. As the technology continues to evolve, we can expect to see even more impressive capabilities from this innovative AI language model.
-                </p>
-              </Col>
-            </Row>
-          </Container>
-        );
-      
+    </Accordion>
+  );
 }
