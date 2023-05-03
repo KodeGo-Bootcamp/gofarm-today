@@ -100,6 +100,10 @@ export default async function handler(request, response) {
         response.status(503).json({ message: "Something went wrong" })
     })
 
+    if (response.statusCode !== 200) {
+        return
+    }
+
     const weatherVariables = "soil_temperature_0cm"
         + ",soil_temperature_6cm"
         + ",soil_temperature_18cm"
@@ -189,6 +193,10 @@ export default async function handler(request, response) {
         response.status(503).json({ message: "Something went wrong" })
     })
 
+    if (response.statusCode !== 200) {
+        return
+    }
+
     const geocodeUrl = `https://geocode.maps.co/reverse`
         + `?lat=${latitude}`
         + `&lon=${longitude}`
@@ -216,7 +224,7 @@ export default async function handler(request, response) {
         response.status(503).json({ message: "Something went wrong" })
     })
 
-    if (response.statusCode != 200) {
+    if (response.statusCode !== 200) {
         return
     }
 
