@@ -56,7 +56,7 @@ export default function WeatherFrame() {
                     <Card className={"my-1"}>
                         <Card.Body className={"d-flex justify-content-between"}>
                             <Card.Text className='m-0'>
-                                <Image src={getIconUrl(weatherData.weather.icon)} />
+                                <Image src={getIconUrl(weatherData.weather.icon)} alt={"weather icon"} />
                                 {weatherData.weather.main}
                             </Card.Text>
                             <Card.Text className="align-self-center">
@@ -253,10 +253,18 @@ export default function WeatherFrame() {
         }
 
         const useExternalAPI = () => {
-            const url = `http://ip-api.com/json`
-            axios.get(url).then((axiosResponse) => {
-                const { lat, lon } = axiosResponse.data
-                setLocation({ latitude: lat, longitude: lon })
+            const primaryProviderUrl = `https://ipapi.co/json`
+            axios.get(primaryProviderUrl).then((axiosResponse) => {
+                const { latitude, longitude } = axiosResponse.data
+                if (latitude && longitude) {
+                    setLocation({ latitude, longitude })
+                    return
+                }
+                const secondaryProviderUrl = `http://ip-api.com/json`
+                axios.get(secondaryProviderUrl).then((axiosResponse) => {
+                    const { lat, lon } = axiosResponse.data
+                    setLocation({ latitude: lat, longitude: lon })
+                })
             })
         }
 
