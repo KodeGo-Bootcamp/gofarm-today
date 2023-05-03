@@ -131,7 +131,7 @@ export default function WeatherFrame() {
 
     const TimeCard = ({ occurence, time }) => {
         return (
-            <Card className={"text-center my-1"} bg={"light"} variant={"light"} text={"dark"}>
+            <Card className={"text-center my-1"}>
                 <Card.Body>
                     <Card.Title>
                         {occurence}
@@ -181,7 +181,7 @@ export default function WeatherFrame() {
 
     const TemperatureCard = ({ timePeriod, temperature, feelsLike }) => {
         return (
-            <Card className={"text-center my-1"} bg={"light"} variant={"light"} text={"dark"}>
+            <Card className={"text-center my-1"}>
                 <Card.Header>
                     {timePeriod}
                 </Card.Header>
