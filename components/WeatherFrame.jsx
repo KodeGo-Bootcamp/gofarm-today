@@ -260,11 +260,7 @@ export default function WeatherFrame() {
                     setLocation({ latitude, longitude })
                     return
                 }
-                const secondaryProviderUrl = `http://ip-api.com/json`
-                axios.get(secondaryProviderUrl).then((axiosResponse) => {
-                    const { lat, lon } = axiosResponse.data
-                    setLocation({ latitude: lat, longitude: lon })
-                })
+                setLocation({latitude: 14.5995, longitude: 120.9842})
             })
         }
 
