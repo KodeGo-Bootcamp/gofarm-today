@@ -20,7 +20,7 @@ import { toJsTimestamp, toMoonPhaseName } from "@/core/weather"
  * - moon_phase (string): The phase of the moon
  * - temperature.morning (number): The morning temperature in Celsius
  * - temperature.day (number): The daytime temperature in Celsius
- * - temperature.eve (number): The evening temperature in Celsius
+ * - temperature.evening (number): The evening temperature in Celsius
  * - temperature.night (number): The nighttime temperature in Celsius
  * - temperature.minimum (number): The minimum temperature in Celsius
  * - temperature.maximum (number): The maximum temperature in Celsius
@@ -233,7 +233,7 @@ export default async function handler(request, response) {
         temperature: {
             morning: openweatherData.daily[0].temp.morn,
             day: openweatherData.daily[0].temp.day,
-            eve: openweatherData.daily[0].temp.eve,
+            evening: openweatherData.daily[0].temp.eve,
             night: openweatherData.daily[0].temp.night,
             minimum: openweatherData.daily[0].temp.min,
             maximum: openweatherData.daily[0].temp.max
