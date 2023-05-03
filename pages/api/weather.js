@@ -266,7 +266,7 @@ export default async function handler(request, response) {
         ...openmeteoData,
         address: {
             full: geocodeData.display_name,
-            state: geocodeData.address.state,
+            state: geocodeData.address.state ?? geocodeData.address.state_district,
             country: geocodeData.address.country,
             country_code: geocodeData.address.country_code
         }
