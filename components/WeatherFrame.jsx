@@ -43,7 +43,7 @@ export default function WeatherFrame() {
         }
 
         return (
-            <Modal show={isRequesting} onHide={handleOnHide} backdrop={"static"} keyboard={false}>
+            <Modal show={isRequesting} onHide={handleOnHide} backdrop={"static"} keyboard={false} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>
                         Welcome to our site!
