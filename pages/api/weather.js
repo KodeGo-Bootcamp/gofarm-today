@@ -197,9 +197,11 @@ export default async function handler(request, response) {
         return
     }
 
+    const format = "json"
     const geocodeUrl = `https://geocode.maps.co/reverse`
         + `?lat=${latitude}`
         + `&lon=${longitude}`
+        + `&format=${format}`
     const geocodeData = await axios.get(geocodeUrl).then((axiosResponse) => {
         if (axiosResponse.data.error) {
             const message = axiosResponse.data.error
@@ -248,9 +250,9 @@ export default async function handler(request, response) {
         },
         feels_like_temperature: {
             morning: openweatherData.daily[0].feels_like.morn,
-            day: openweatherData.daily[0].temp.day,
-            evening: openweatherData.daily[0].temp.eve,
-            night: openweatherData.daily[0].temp.night,
+            day: openweatherData.daily[0].feels_like.day,
+            evening: openweatherData.daily[0].feels_like.eve,
+            night: openweatherData.daily[0].feels_like.night,
         },
         atmospheric_pressure: openweatherData.daily[0].pressure,
         humidity: openweatherData.daily[0].humidity,

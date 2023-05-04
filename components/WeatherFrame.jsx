@@ -17,8 +17,8 @@ export default function WeatherFrame() {
         }
 
         const useExternalAPI = () => {
-            const primaryProviderUrl = `https://ipapi.co/json`
-            axios.get(primaryProviderUrl).then((axiosResponse) => {
+            const url = `https://ipapi.co/json`
+            axios.get(url).then((axiosResponse) => {
                 const { latitude, longitude } = axiosResponse.data
                 if (latitude && longitude) {
                     setLocation({ latitude, longitude })
