@@ -117,13 +117,14 @@ export default function ChatFrame() {
             }
             axios.post(url, data).then((axiosResponse) => {
                 setCurrentChatContext([...axiosResponse.data])
-            })
+            }).catch(() => {})
 
             setCurrentChatContext([...currentChatContext, { role: "user", content: chatBoxContent }])
             setChatBoxContent("")
         }
 
         const handleOnHide = () => {
+            setChatContext([...currentChatContext])
             setIsChatting(false)
             setIsChatToggleable(true)
         }
@@ -212,7 +213,7 @@ export default function ChatFrame() {
             setChatContext([...axiosResponse.data])
             setIsChatToggleable(false)
             setIsGreeting(true)
-        })
+        }).catch(() => {})
     }, [chatPrompt])
 
     return (
