@@ -5,7 +5,9 @@ import { useWeatherDataReducer } from "./DataContext";
 
 export default function ChatFrame() {
     const [weatherData, weatherDataDispatch] = useWeatherDataReducer()
-    const [chatData, setChatData] = useState()
+    const [encryptedApiKey, setEncryptedApiKey] = useState()
+    const [chatPrompt, setChatPrompt] = useState()
+    const [chatContext, setChatContext] = useState()
     const [isGreeting, setIsGreeting] = useState(false)
     const [isChatting, setIsChatting] = useState(false)
     const [isChatToggleable, setIsChatToggleable] = useState(false)
@@ -93,8 +95,8 @@ export default function ChatFrame() {
 
     const ChatModal = () => {
         const [chatBoxContent, setChatBoxContent] = useState("")
-        const [currentWeatherContext, setCurrentWeatherContext] = useState(weatherData)
-        const [currentChatContext, setCurrentChatContext] = useState(chatData)
+        const [currentWeatherData, setCurrentWeatherData] = useState(weatherData)
+        const [currentChatContext, setCurrentChatContext] = useState(chatContext)
         const chatBoxEndRef = useRef(null)
 
         const scrollToBottom = () => {
@@ -107,10 +109,11 @@ export default function ChatFrame() {
                 return
             }
 
-            const url = `/api/chatbot`
+            const url = `https://t6gr3troewupiezqfp5qbodhca0iacrs.lambda-url.ap-southeast-2.on.aws/chatbot/`
             const data = {
-                weather_data: currentWeatherContext,
-                chat_data: [...currentChatContext, { role: "user", content: chatBoxContent }]
+                encrypted_openai_api_key: encryptedApiKey,
+                chat_prompt: chatPrompt,
+                chat_context: [...currentChatContext, { role: "user", content: chatBoxContent }]
             }
             axios.post(url, data).then((axiosResponse) => {
                 setCurrentChatContext([...axiosResponse.data])
@@ -174,25 +177,47 @@ export default function ChatFrame() {
     }
 
     useEffect(() => {
+        const url = `/api/keygen`
+        axios.get(url).then((axiosResponse) => {
+            setEncryptedApiKey(axiosResponse.data.encrypted_api_key)
+        })
+    }, [])
+
+    useEffect(() => {
         if (!weatherData) {
             return
         }
 
-        const url = `/api/chatbot`
+        const url = `/api/prompt`
         const data = {
-            weather_data: weatherData,
-            chat_data: []
+            weather_data: weatherData
         }
         axios.post(url, data).then((axiosResponse) => {
-            setChatData([...axiosResponse.data])
-            setIsChatToggleable(false)
-            setIsGreeting(true)
+            setChatPrompt([...axiosResponse.data])
         })
     }, [weatherData])
 
+    useEffect(() => {
+        if (!chatPrompt) {
+            return
+        }
+
+        const url = `https://t6gr3troewupiezqfp5qbodhca0iacrs.lambda-url.ap-southeast-2.on.aws/chatbot/`
+        const data = {
+            encrypted_openai_api_key: encryptedApiKey,
+            chat_prompt: chatPrompt,
+            chat_context: []
+        }
+        axios.post(url, data).then((axiosResponse) => {
+            setChatContext([...axiosResponse.data])
+            setIsChatToggleable(false)
+            setIsGreeting(true)
+        })
+    }, [chatPrompt])
+
     return (
         <>
-            {chatData ? <GreetingToast /> : ""}
+            {chatContext ? <GreetingToast /> : ""}
             <ChatToggle />
             <ChatModal />
         </>
