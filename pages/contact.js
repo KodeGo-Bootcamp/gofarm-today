@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import NavigationBar from '@/components/NavigationBar'
 import DraftFrame from '@/components/DraftFrame'
-
+import ContactForm from '@/components/ContactForm'
 export default function Contact() {
     return (
         <>
@@ -18,7 +18,7 @@ export default function Contact() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <NavigationBar activeKey={"/contact"} />
-            <DraftFrame />
+            <ContactForm />
         </>
     )
 }
