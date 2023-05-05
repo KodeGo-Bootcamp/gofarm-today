@@ -124,6 +124,7 @@ export default function ChatFrame() {
         }
 
         const handleOnHide = () => {
+            setChatContext([...currentChatContext])
             setIsChatting(false)
             setIsChatToggleable(true)
         }
