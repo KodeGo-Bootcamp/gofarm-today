@@ -1,6 +1,10 @@
 import Head from 'next/head'
 import NavigationBar from '@/components/NavigationBar'
-import DraftFrame from '@/components/DraftFrame'
+//import DraftFrame from '@/components/DraftFrame'
+import AboutChatFrame from '@/components/AboutChatFrame'
+import Aboutsensor from '@/components/AboutSensorFrame'
+import AboutWeatherFrame from '@/components/AboutWeatherFrame'
+import Instruction from '@/components/AboutInstructions'
 
 export default function About() {
     return (
@@ -18,7 +22,10 @@ export default function About() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <NavigationBar activeKey={"/about"} />
-            <DraftFrame />
+            <Aboutsensor/>
+            <AboutWeatherFrame/>
+            <AboutChatFrame/>
+            <Instruction/>
         </>
     )
 }
