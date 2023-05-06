@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import NavigationBar from '@/components/NavigationBar'
 import ChatFrame from '@/components/ChatFrame'
+import SensorFrame from '@/components/SensorFrame'
 import WeatherFrame from '@/components/WeatherFrame'
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
             <NavigationBar activeKey={"/"} />
             <WeatherFrame />
             <ChatFrame />
+            <SensorFrame />
         </>
     )
 }
