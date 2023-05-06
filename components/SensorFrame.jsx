@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Button, Container, Modal } from "react-bootstrap"
+import { Button, Carousel, Container, Image, Modal } from "react-bootstrap"
 import Webcam from "react-webcam"
 import { computeOppositeSideLength, toCartesianCoordinate, computeConvexHull, computeArea } from "@/core/geometry"
 
@@ -104,7 +104,21 @@ export default function SensorFrame() {
 
     return (
         <Container>
-            <Button onClick={() => setIsSensorModalShowing(true)}>sensor</Button>
+            <Carousel prevIcon={""} nextIcon={""} indicators={""}>
+                <Carousel.Item>
+                    <Image
+                        className="d-block w-100"
+                        src="/cover-gyroscope.png"
+                        style={{objectFit: "contain", borderRadius: "0.375rem"}}
+                        alt="gyroscope cover image"
+                    />
+                    <Carousel.Caption style={{color: "black"}}>
+                        <h3>Unlocking Precision Agriculture with Your Smartphone's Gyro</h3>
+                        <p>Seamlessly Measure Ricefield Areas for Optimal Farming. Embrace the Future of Agriculture, Right in the Palm of Your Hand.</p>
+                        <Button onClick={() => setIsSensorModalShowing(true)} variant={"dark"}>Get Started</Button>
+                    </Carousel.Caption>
+                </Carousel.Item>
+            </Carousel>
             <SensorModal />
         </Container>
     )
