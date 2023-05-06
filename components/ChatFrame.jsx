@@ -47,7 +47,7 @@ export default function ChatFrame() {
 
         return (
             <ToastContainer className={"position-fixed p-3"} position={"bottom-end"} style={{ width: "88px", cursor: "pointer" }} onClick={handleClick}>
-                <Toast show={isChatToggleable}>
+                <Toast show={isChatToggleable} style={{overflow: "hidden"}}>
                     <Toast.Header closeButton={false}>
                         <img
                             src={"/logo-chatbot.svg"}

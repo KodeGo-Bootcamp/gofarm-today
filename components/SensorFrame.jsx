@@ -82,8 +82,7 @@ export default function SensorFrame() {
         useEffect(() => {
             try {
                 DeviceMotionEvent.requestPermission();
-            } catch (e) {
-                console.error(e.message)
+            } catch (error) {
             }
         }, [])
 
@@ -108,8 +107,8 @@ export default function SensorFrame() {
                 <Carousel.Item>
                     <Image
                         className="d-block w-100"
-                        src="/cover-gyroscope.png"
-                        style={{objectFit: "contain", borderRadius: "0.375rem"}}
+                        src="/cover-gyroscope.avif"
+                        style={{objectFit: "contain", borderRadius: "0.375rem", width: "100%", height: "100%"}}
                         alt="gyroscope cover image"
                     />
                     <Carousel.Caption style={{color: "black"}}>
