@@ -66,7 +66,8 @@ export default function ChatFrame() {
             borderTopLeftRadius: "0px",
             borderBottomLeftRadius: "0px",
             borderTopRightRadius: "15px",
-            borderBottomRightRadius: "15px"
+            borderBottomRightRadius: "15px",
+            whiteSpace: "pre-wrap"
         }
         if (role === "assistant") {
             return (
@@ -82,7 +83,8 @@ export default function ChatFrame() {
             borderTopLeftRadius: "15px",
             borderBottomLeftRadius: "15px",
             borderTopRightRadius: "0px",
-            borderBottomRightRadius: "0px"
+            borderBottomRightRadius: "0px",
+            whiteSpace: "pre-wrap"
         }
         return (
             <Toast className={"mt-2 mb-2 ms-auto"} style={userStyle}>
